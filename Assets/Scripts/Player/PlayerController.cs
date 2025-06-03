@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-namespace BounceHigher.Script.Player
+namespace BounceDash.Script.Player
 {
     public class PlayerController : MonoBehaviour
     {

@@ -1,4 +1,4 @@
-﻿namespace BounceHigher.Script.Player
+﻿namespace BounceDash.Script.Player
 {
     public class PlayerService
     {

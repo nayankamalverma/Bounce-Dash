@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace BounceHigher.Script.Main
+namespace BounceDash.Script.Main
 {
     public class GameService : MonoBehaviour
     {

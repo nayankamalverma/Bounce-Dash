@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace BounceHigher.Scripts.UI
+namespace BounceDash.Scripts.UI
 {
     public class UIService : MonoBehaviour
     {
