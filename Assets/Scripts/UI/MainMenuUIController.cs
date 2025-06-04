@@ -2,6 +2,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using BounceDash.Scripts.Utilities;
 using TMPro;
+using Unity.VisualScripting;
 
 namespace  BounceDash.Scripts.UI
 {
@@ -13,12 +14,17 @@ namespace  BounceDash.Scripts.UI
         [SerializeField] private TextMeshProUGUI highScoreText;
 
         private EventService eventService;
-
+        private const string highScorePref = "HighScore";
+        private const string coinsPref = "Coins";
         private void Awake()
         {
             playButton.onClick.AddListener(OnPlayButtonClicked);
-            highScoreText.text = "HighScore: "+ PlayerPrefs.GetInt("HighScore", 0);
-            coinText.text = "Coins: "+PlayerPrefs.GetInt("Coins", 0);
+        }
+
+        private void OnEnable()
+        {
+            highScoreText.text = "HighScore: " + PlayerPrefs.GetInt(highScorePref, 0);
+            coinText.text = "Coins: " + PlayerPrefs.GetInt(coinsPref, 0);
         }
 
         public void SetService(EventService eventService)
@@ -29,6 +35,11 @@ namespace  BounceDash.Scripts.UI
         private void OnPlayButtonClicked()
         {
             eventService.OnGameStart.Invoke();
+        }
+
+        private void OnDestroy()
+        {
+            playButton.onClick.RemoveListener(OnPlayButtonClicked);
         }
     }
 }
