@@ -9,9 +9,9 @@ namespace BounceDash.Scripts.Level
 
         public void SetServices(EventService eventService, LevelController levelController)
         {
-            //this.eventService = eventService;
-            //this.levelController = levelController;
-            //AddEventListeners();
+            this.eventService = eventService;
+            this.levelController = levelController;
+            AddEventListeners();
         }
 
         private void AddEventListeners()
@@ -22,12 +22,12 @@ namespace BounceDash.Scripts.Level
 
         private void OnGameStart()
         {
-            
+            levelController.OnGameStart();
         }
 
-        private void OnGameOver()
+        private void OnGameOver(int score,int coin)
         {
-
+            levelController.OnGameOver();
         }
 
         public void OnDestroy()

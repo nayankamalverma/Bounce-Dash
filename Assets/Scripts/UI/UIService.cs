@@ -6,6 +6,8 @@ namespace BounceDash.Scripts.UI
     public class UIService : MonoBehaviour
     {
         [SerializeField] private MainMenuUIController mainMenuUIController;
+        [SerializeField] private GamePlayUIController gamePlayUIController;
+        [SerializeField] private GameOverUIController gameOverUIController;
 
         private EventService eventService;
 
@@ -13,20 +15,46 @@ namespace BounceDash.Scripts.UI
         {
             this.eventService = eventService;
             mainMenuUIController.SetService(eventService);
-            AddEventListeners();
+            gamePlayUIController.SetService(eventService);
+            gameOverUIController.SetService(eventService);
         }
-        private void AddEventListeners()
+        private void OnEnable()
         {
             eventService.OnGameStart.AddListener(OnGameStart);
+            eventService.OnGameOver.AddListener(OnGameOver);
+            eventService.OnMainMenuButtonClicked.AddListener(OnMainMenuButtonClick);
+        }
+
+        private void OnMainMenuButtonClick()
+        {
+            DisableGameOverUI();
+            UnableMainMenu();
+        }
+        private void OnGameOver(int score, int coins)
+        {
+            UnsableGameOverUI();
+            DisableGamePlayUI();
         }
 
         private void OnGameStart()
         {
-            mainMenuUIController.gameObject.SetActive(false);
+            DisableGameOverUI();
+            DisableMainMenu();
+            UnableGamePlayUI();
         }
-        private void OnDestroy()
+        private void OnDisable()
         {
             eventService.OnGameStart.RemoveListener(OnGameStart);
+            eventService.OnGameOver.RemoveListener(OnGameOver);
+            eventService.OnMainMenuButtonClicked.RemoveListener(OnMainMenuButtonClick);
         }
+
+
+        private void UnableMainMenu()=> mainMenuUIController.gameObject.SetActive(true);
+        private void DisableMainMenu()=> mainMenuUIController.gameObject.SetActive(false);
+        private void UnableGamePlayUI()=> gamePlayUIController.gameObject.SetActive(true);
+        private void DisableGamePlayUI()=> gamePlayUIController.gameObject.SetActive(false);
+        private void UnsableGameOverUI()=> gamePlayUIController.gameObject.SetActive(true);
+        private void DisableGameOverUI()=> gamePlayUIController.gameObject.SetActive(false);
     }
 }

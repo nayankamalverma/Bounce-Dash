@@ -7,9 +7,9 @@ namespace BounceDash.Scripts.Level
     public class PlatformController : MonoBehaviour
     {
         [SerializeField] private List<PlatformSO> platformSOList;
-        [SerializeField] private int initialBuildingCount = 8;
-        [SerializeField] private Transform buildingSpawnPos;
-        [SerializeField] private Transform buildingDestroyPos;
+        [SerializeField] private int initialPlatformCount = 6;
+        [SerializeField] private Transform platformSpawnPos;
+        [SerializeField] private Transform platformDestroyPos;
 
         private PlatformObjectPool platformObjectPool;
         private LevelController levelController;
@@ -19,7 +19,7 @@ namespace BounceDash.Scripts.Level
         {
             platformObjectPool = new PlatformObjectPool();
             platformObjectPool.SetService(transform , platformSOList);
-            SpawnInitialBuilding();
+            SpawnInitialPlatforms();
             isPaused = true;
         }
         public void SetReferences(LevelController levelController)
@@ -35,30 +35,32 @@ namespace BounceDash.Scripts.Level
             }
         }
         private void MoveBuildings()
-        {//need to change locig object will move in y axis
+        {
             foreach (var pooledItem in platformObjectPool.pooledItems)
             {
-                var building = pooledItem.Item;
+                var platform = pooledItem.Item;
                 if (pooledItem.isUsed)
                 {
-                    Vector3 targetPosition = building.transform.position + (Vector3.left * levelController.GetMoveSpeed() * Time.deltaTime);
-                    building.transform.position = Vector3.Lerp(building.transform.position, targetPosition, 0.5f);
+                    Vector3 targetPosition = platform.transform.position + (Vector3.down * levelController.GetMoveSpeed() * Time.deltaTime);
+                    platform.transform.position = Vector3.Lerp(platform.transform.position, targetPosition, 0.5f);
 
-                    if (building.transform.position.y <= buildingDestroyPos.position.y)
+                    if (platform.transform.position.y <= platformDestroyPos.position.y)
                     {
                         platformObjectPool.ReturnItem(pooledItem);
-                        ConfigureBuilding(platformObjectPool.GetItem(GetRandomBuilding()), buildingSpawnPos);
+                        ConfigureBuilding(platformObjectPool.GetItem(GetRandomBuilding()), platformSpawnPos);
                     }
                 }
             }
         }
-        private void SpawnInitialBuilding()
+        private void SpawnInitialPlatforms()
         {
-            buildingSpawnPos.position = Vector3.zero;
-            for (int i = 0; i < initialBuildingCount; i++)
+            for (int i = 0; i < initialPlatformCount; i++)
             {
-                if (i != 0) buildingSpawnPos.position = new Vector3(buildingSpawnPos.position.x + 10, buildingSpawnPos.position.y, buildingSpawnPos.position.z);
-                ConfigureBuilding(platformObjectPool.GetItem(GetRandomBuilding()), buildingSpawnPos);
+                if(i!=0)platformSpawnPos.position = new Vector3(platformSpawnPos.position.x , platformSpawnPos.position.y + 2f , platformSpawnPos.position.z);
+
+                if(i==0 || i==2) ConfigureBuilding(platformObjectPool.GetItem(PlatformType.TYPE101), platformSpawnPos);
+                else if(i==1) ConfigureBuilding(platformObjectPool.GetItem(PlatformType.TYPE010), platformSpawnPos);
+                else ConfigureBuilding(platformObjectPool.GetItem(GetRandomBuilding()), platformSpawnPos);
             }
         }
         private PlatformType GetRandomBuilding()
@@ -71,5 +73,6 @@ namespace BounceDash.Scripts.Level
             item.transform.rotation = spawnPos.rotation;
         }
 
+        public void SetPaused(bool isPaused) => this.isPaused = isPaused;
     }
 }

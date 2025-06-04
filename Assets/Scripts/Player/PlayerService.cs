@@ -10,6 +10,7 @@ namespace BounceDash.Scripts.Player
         {
             this.eventService = eventService;
             this.playerController = playerController;
+            playerController.SetServices(eventService);
             AddEventListeners();
         }
 
