@@ -1,4 +1,4 @@
-﻿namespace BounceHigher.Scripts.Utilities
+﻿namespace BounceDash.Scripts.Utilities
 {
     public class EventService
     {

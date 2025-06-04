@@ -1,34 +1,50 @@
+using BounceDash.Scripts.Utilities;
 using UnityEngine;
-using UnityEngine.InputSystem;
 
-namespace BounceHigher.Script.Player
+namespace BounceDash.Scripts.Player
 {
     public class PlayerController : MonoBehaviour
     {
-
         [Header("Movement")] [SerializeField] private float moveSpeed = 5f;
         [SerializeField] private float desiredHeight = 3f; // Max bounce height
         [Header("Input")] private PlayerInput playerInput;
 
-        private InputAction m_moveAction;
         private Vector2 moveInput;
         private Rigidbody2D rb;
         private bool isBouncing;
 
+        private EventService eventService;
+
         private void Awake()
         {
             playerInput = new PlayerInput();
+            rb = GetComponent<Rigidbody2D>();
+            
         }
 
         void Start()
         {
-            rb = GetComponent<Rigidbody2D>();
+            rb.simulated = false;
+        }
+
+        public void SetServices(EventService eventService)
+        {
+            this.eventService = eventService;
+        }
+
+        public void OnGameStart()
+        {
+            playerInput.Enable();
+            rb.simulated = true;
             // Initial drop
             rb.linearVelocity = new Vector2(0, -Mathf.Sqrt(2f * Mathf.Abs(Physics2D.gravity.y) * desiredHeight));
         }
 
-        private void OnEnable() => playerInput.Enable();
-        private void OnDisable() => playerInput.Disable();
+        public void OnGameOver()
+        {
+            rb.simulated = false;
+            playerInput.Disable();
+        }
 
         private void Update()
         {
