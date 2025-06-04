@@ -7,12 +7,27 @@ namespace BounceDash.Scripts.Level
         [SerializeField] private float platformMoveSpeed;
 
         [SerializeField] private PlatformController platformController;
+        private bool isPaused;
 
         private void Start()
         {
             platformController.SetReferences(this);
+            isPaused = true;
+        }
+
+        public void OnGameStart()
+        {
+            isPaused = false;
+            platformController.SetPaused(isPaused);
+        }
+
+        public void OnGameOver()
+        {
+            isPaused = true;
+            platformController.SetPaused(isPaused);
         }
 
         public float GetMoveSpeed() => platformMoveSpeed;
+        
     }
 }

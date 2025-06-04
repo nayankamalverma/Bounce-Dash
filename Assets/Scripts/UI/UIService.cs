@@ -6,6 +6,7 @@ namespace BounceDash.Scripts.UI
     public class UIService : MonoBehaviour
     {
         [SerializeField] private MainMenuUIController mainMenuUIController;
+        [SerializeField] private GamePlayUIController gamePlayUIController;
 
         private EventService eventService;
 
@@ -13,18 +14,26 @@ namespace BounceDash.Scripts.UI
         {
             this.eventService = eventService;
             mainMenuUIController.SetService(eventService);
-            AddEventListeners();
+            gamePlayUIController.SetService(eventService);
         }
-        private void AddEventListeners()
+        private void OnEnable()
         {
             eventService.OnGameStart.AddListener(OnGameStart);
+            eventService.OnGameOver.AddListener(OnGameOver);
+        }
+
+        private void OnGameOver(int score, int coins)
+        {
+            //gameOverUIController.gameObject.SetActive(true);
+            gamePlayUIController.gameObject.SetActive(false);
         }
 
         private void OnGameStart()
         {
             mainMenuUIController.gameObject.SetActive(false);
+            gamePlayUIController.gameObject.SetActive(true);
         }
-        private void OnDestroy()
+        private void OnDisable()
         {
             eventService.OnGameStart.RemoveListener(OnGameStart);
         }
