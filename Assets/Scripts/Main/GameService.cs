@@ -9,6 +9,7 @@ namespace BounceDash.Scripts.Main
     public class GameService : MonoBehaviour
     {
         [Header("References")]
+        [SerializeField] private LevelController levelController;
         [SerializeField] private PlayerController playerController;
 
         #region services
@@ -30,7 +31,7 @@ namespace BounceDash.Scripts.Main
         private void SetServiceAndReferences()
         {
             UIService.SetServices(EventService);
-            LevelService.SetServices(EventService);
+            LevelService.SetServices(EventService,levelController);
             PlayerService.SetServices(EventService,playerController);
         }
         private void OnDestroy()
