@@ -9,9 +9,11 @@ namespace  BounceDash.Scripts.UI
     public class MainMenuUIController : MonoBehaviour
     {
         [SerializeField] private Button playButton;
-        [SerializeField] private Button inventoryButton;
+        [SerializeField] private Button instructionsButton;
+        [SerializeField] private Button instructionsCloseButton;
         [SerializeField] private TextMeshProUGUI coinText;
         [SerializeField] private TextMeshProUGUI highScoreText;
+        [SerializeField] private GameObject instructionPanel;
 
         private EventService eventService;
         private const string highScorePref = "HighScore";
@@ -19,6 +21,18 @@ namespace  BounceDash.Scripts.UI
         private void Awake()
         {
             playButton.onClick.AddListener(OnPlayButtonClicked);
+            instructionsButton.onClick.AddListener(OpenInstructionPanel);
+            instructionsCloseButton.onClick.AddListener(CloseInstructionPanel);
+        }
+
+        private void CloseInstructionPanel()
+        {
+            instructionPanel.SetActive(false);
+        }
+
+        private void OpenInstructionPanel()
+        {
+            instructionPanel.SetActive(true);
         }
 
         private void OnEnable()
@@ -40,6 +54,8 @@ namespace  BounceDash.Scripts.UI
         private void OnDestroy()
         {
             playButton.onClick.RemoveListener(OnPlayButtonClicked);
+            instructionsButton.onClick.RemoveListener(OpenInstructionPanel);
+            instructionsCloseButton.onClick.RemoveListener(CloseInstructionPanel);
         }
     }
 }

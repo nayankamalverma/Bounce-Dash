@@ -27,6 +27,7 @@ namespace BounceDash.Scripts.Level
     {
         TYPE100,
         TYPE101,
+        TYPE101c,
         TYPE001,
         TYPE010,
     }

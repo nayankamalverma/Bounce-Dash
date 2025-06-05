@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 92bc2c742a37e1f40aadbf261e325c4c, type: 3}
-  m_Name: p101
+  m_Name: p001
   m_EditorClassIdentifier: 
-  platformType: 1
-  platfromPrefab: {fileID: 8886030104987806445, guid: bd53e8a00d344f245ad3f618aac57bef, type: 3}
+  platformType: 3
+  platfromPrefab: {fileID: 8886030104987806445, guid: 09a3e226c39325544839705506d1d0df, type: 3}

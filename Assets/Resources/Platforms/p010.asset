@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 92bc2c742a37e1f40aadbf261e325c4c, type: 3}
   m_Name: p010
   m_EditorClassIdentifier: 
-  platformType: 3
+  platformType: 4
   platfromPrefab: {fileID: 8886030104987806445, guid: 8ecdee5892b39ad43950e786c639fb10, type: 3}
