@@ -1,5 +1,6 @@
 using BounceDash.Scripts.Utilities;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -57,5 +58,10 @@ public class GameOverUIController : MonoBehaviour
     private void MainMenu()
     {
         eventService.OnMainMenuButtonClicked.Invoke();
+    }
+
+    private void OnDestroy()
+    {
+        eventService.OnGameOver.RemoveListener(UpdatePanel);
     }
 }

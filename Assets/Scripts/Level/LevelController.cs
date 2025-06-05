@@ -19,6 +19,7 @@ namespace BounceDash.Scripts.Level
         {
             isPaused = false;
             platformController.SetPaused(isPaused);
+            platformController.OnGameStart();
         }
 
         public void OnGameOver()

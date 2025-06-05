@@ -13,18 +13,26 @@ namespace BounceDash.Scripts.Level
 
         private PlatformObjectPool platformObjectPool;
         private LevelController levelController;
+        private Vector2 initialSpawnPosition;
         private bool isPaused;
 
         private void Awake()
         {
             platformObjectPool = new PlatformObjectPool();
             platformObjectPool.SetService(transform , platformSOList);
+            initialSpawnPosition = platformSpawnPos.position;
             SpawnInitialPlatforms();
             isPaused = true;
         }
         public void SetReferences(LevelController levelController)
         {
             this.levelController = levelController;
+        }
+
+        public void OnGameStart()
+        {
+            platformObjectPool.ReturnAllItem();
+            SpawnInitialPlatforms();
         }
 
         private void Update()
@@ -54,6 +62,7 @@ namespace BounceDash.Scripts.Level
         }
         private void SpawnInitialPlatforms()
         {
+            platformSpawnPos.position = initialSpawnPosition;
             for (int i = 0; i < initialPlatformCount; i++)
             {
                 if(i!=0)platformSpawnPos.position = new Vector3(platformSpawnPos.position.x , platformSpawnPos.position.y + 2f , platformSpawnPos.position.z);

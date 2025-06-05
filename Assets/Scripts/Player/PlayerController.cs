@@ -20,7 +20,6 @@ namespace BounceDash.Scripts.Player
         private const string obstacelTag = "Obstacle";
         private Vector2 spawnPosition;
 
-
         private EventService eventService;
 
         private void Awake()
@@ -96,6 +95,7 @@ namespace BounceDash.Scripts.Player
             {
                 coin++;
                 eventService.OnCoinCollected.Invoke();
+                collision.gameObject.SetActive(false);
             }
             if(collision.gameObject.CompareTag(obstacelTag))
             {

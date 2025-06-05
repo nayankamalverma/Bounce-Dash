@@ -41,6 +41,10 @@ namespace BounceDash.Scripts.Utilities
 
         public virtual void ReturnItem(PooledItem<T> item)
         {
+            foreach (Transform child in item.Item.transform)
+            {
+                child.gameObject.SetActive(true);
+            }
             item.Item.SetActive(false);
             item.isUsed = false;
         }
@@ -49,8 +53,7 @@ namespace BounceDash.Scripts.Utilities
         {
             foreach (var item in pooledItems)
             {
-                item.Item.SetActive(false);
-                item.isUsed = false;
+                ReturnItem(item);
             }
         }
 

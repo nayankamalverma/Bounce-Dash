@@ -17,8 +17,9 @@ namespace BounceDash.Scripts.UI
             mainMenuUIController.SetService(eventService);
             gamePlayUIController.SetService(eventService);
             gameOverUIController.SetService(eventService);
+            AddEventListeners();
         }
-        private void OnEnable()
+        private void AddEventListeners()
         {
             eventService.OnGameStart.AddListener(OnGameStart);
             eventService.OnGameOver.AddListener(OnGameOver);
@@ -42,7 +43,7 @@ namespace BounceDash.Scripts.UI
             DisableMainMenu();
             UnableGamePlayUI();
         }
-        private void OnDisable()
+        private void OnDestroy()
         {
             eventService.OnGameStart.RemoveListener(OnGameStart);
             eventService.OnGameOver.RemoveListener(OnGameOver);
@@ -54,7 +55,7 @@ namespace BounceDash.Scripts.UI
         private void DisableMainMenu()=> mainMenuUIController.gameObject.SetActive(false);
         private void UnableGamePlayUI()=> gamePlayUIController.gameObject.SetActive(true);
         private void DisableGamePlayUI()=> gamePlayUIController.gameObject.SetActive(false);
-        private void UnsableGameOverUI()=> gamePlayUIController.gameObject.SetActive(true);
-        private void DisableGameOverUI()=> gamePlayUIController.gameObject.SetActive(false);
+        private void UnsableGameOverUI()=> gameOverUIController.gameObject.SetActive(true);
+        private void DisableGameOverUI()=> gameOverUIController.gameObject.SetActive(false);
     }
 }

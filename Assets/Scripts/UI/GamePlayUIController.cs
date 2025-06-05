@@ -1,6 +1,7 @@
 using System;
 using BounceDash.Scripts.Utilities;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 
 namespace BounceDash.Scripts.UI
@@ -53,6 +54,11 @@ namespace BounceDash.Scripts.UI
         private void UpdateCoinText()
         {
             coinText.text = "Coins: " + coin;
+        }
+
+        private void OnDisable()
+        {
+            eventService.OnCoinCollected.RemoveListener(UpdateCoin);
         }
     }
 }
