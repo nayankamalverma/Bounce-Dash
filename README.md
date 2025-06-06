@@ -1,5 +1,6 @@
-# Bounce Dash
-video - <a href="https://drive.google.com/file/d/18eCFhP7X3SBnzjfETmj6Mk7NVoflnkfn/view?usp=sharing">Click here</a>
+# Bounce Dash 
+<h3>Play -<a href="https://nayankamalverma.itch.io/bounce-dash">Click here</a> </h3>
+<h3>video - <a href="https://drive.google.com/file/d/18eCFhP7X3SBnzjfETmj6Mk7NVoflnkfn/view?usp=sharing">Click here</a></h3>
 <p>Bounce Dash is a hyper-casual 2D game where the player controls a bouncing ball that dodges obstacles and climbs platforms keep on the platforms as long as you can to score and collect coins.</p>
 <p>Core Gameplay</p>
 <ul>
